@@ -287,4 +287,10 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public SequenceEcritureComptable getSequenceEcritureComptable(String code, int anneeEcriture) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

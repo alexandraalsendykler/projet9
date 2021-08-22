@@ -60,7 +60,37 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	 */
 	// TODO à tester
 	@Override
-	public synchronized void addReference(EcritureComptable pEcritureComptable) {
+	public synchronized void addReference(final EcritureComptable pEcritureComptable) {
+		String ref;
+		String ValeurSequence = "";
+
+		Calendar date = Calendar.getInstance();
+		date.setTime(pEcritureComptable.getDate());
+		int anneeEcriture = date.get(Calendar.YEAR);
+
+		SequenceEcritureComptable sequence = getDaoProxy().getComptabiliteDao()
+				.getSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), anneeEcriture);
+
+		if (sequence != null) {
+			if (anneeEcriture == sequence.getAnnee()) {
+				ValeurSequence = String.valueOf(sequence.getDerniereValeur() + 1);
+				ref = pEcritureComptable.getJournal().getCode() + "-" + anneeEcriture + "/";
+				while (ValeurSequence.length() != 5) {
+					ValeurSequence = "0";
+				}
+				ref = ref.concat(ValeurSequence.toString());
+				pEcritureComptable.setReference(ref);
+				sequence.setDerniereValeur(sequence.getDerniereValeur() + 1);
+				updateSequenceEcritureComptable(sequence, pEcritureComptable.getJournal().getCode());
+			}
+		} else {
+			sequence = new SequenceEcritureComptable();
+			sequence.setAnnee(anneeEcriture);
+			sequence.setDerniereValeur(1);
+			pEcritureComptable
+					.setReference(pEcritureComptable.getJournal().getCode() + "-" + anneeEcriture + "/" + "00001");
+			updateSequenceEcritureComptable(sequence, pEcritureComptable.getJournal().getCode());
+		}
 
 		// TODO à implémenter
 		// Bien se réferer à la JavaDoc de cette méthode !
@@ -90,9 +120,9 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
 		// isntaller docker et démarrer le fichier
 		// C:\Users\alexa\eclipse-workspace\projet_B4_FR\docker\dev
-		
+
 		// corriger erreur commit git
-		
+
 		Integer derniereValeur;
 		Date dateEcriture = pEcritureComptable.getDate();
 		Calendar cal = new GregorianCalendar();
@@ -113,6 +143,11 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		}
 		pEcritureComptable.setReference(
 				String.format("%s-%d/%05d", pEcritureComptable.getJournal().getCode(), annee, derniereValeur));
+	}
+
+	private void updateSequenceEcritureComptable(SequenceEcritureComptable sequence, String code) {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**

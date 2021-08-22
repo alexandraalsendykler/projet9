@@ -104,4 +104,7 @@ public interface ComptabiliteDao {
      * @param pId l'id de l'écriture
      */
     void deleteEcritureComptable(Integer pId);
+
+
+	SequenceEcritureComptable getSequenceEcritureComptable(String code, int anneeEcriture);
 }
