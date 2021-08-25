@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.TransactionStatus;
 import com.dummy.myerp.business.contrat.manager.ComptabiliteManager;
 import com.dummy.myerp.business.impl.AbstractBusinessManager;
+import com.dummy.myerp.consumer.dao.impl.db.rowmapper.comptabilite.SequenceEcritureComptableRM;
 import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
@@ -56,8 +57,8 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	}
 	
 	@Override
-	public List<SequenceEcritureComptableRM> getListSequenceEcritureComptableRM() {
-		return getDaoProxy().getComptabiliteDao().getListSequenceEcritureComptableRM();
+	public List<SequenceEcritureComptable> getListSequenceEcritureComptableRM() {
+		return getDaoProxy().getComptabiliteDao().getListSequenceEcritureComptable();
 	}
 
 	/**
@@ -313,5 +314,11 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		} finally {
 			getTransactionManager().rollbackMyERP(vTS);
 		}
+	}
+
+	@Override
+	public List<SequenceEcritureComptable> getListSequenceEcritureComptables() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

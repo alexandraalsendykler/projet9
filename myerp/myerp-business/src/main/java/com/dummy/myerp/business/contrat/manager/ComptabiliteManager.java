@@ -10,8 +10,9 @@ import com.dummy.myerp.technical.exception.FunctionalException;
 
 /**
  * Interface du manager du package comptabilite.
+ * @param <SequenceEcritureComptableRM>
  */
-public interface ComptabiliteManager {
+public interface ComptabiliteManager<SequenceEcritureComptableRM> {
 
 	/**
 	 * Renvoie la liste des comptes comptables.
@@ -94,4 +95,6 @@ public interface ComptabiliteManager {
 	 * @param pId l'id de l'écriture
 	 */
 	void deleteEcritureComptable(Integer pId);
+
+	List<SequenceEcritureComptableRM> getListSequenceEcritureComptableRM();
 }
