@@ -55,7 +55,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	public List<EcritureComptable> getListEcritureComptable() {
 		return getDaoProxy().getComptabiliteDao().getListEcritureComptable();
 	}
-	
+
 	@Override
 	public List<SequenceEcritureComptable> getListSequenceEcritureComptableRM() {
 		return getDaoProxy().getComptabiliteDao().getListSequenceEcritureComptable();
@@ -66,69 +66,46 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	 */
 	// TODO à tester
 	@Override
-	public synchronized void addReference(final EcritureComptable pEcritureComptable) {
-		String ref;
-		String ValeurSequence = "";
+	public synchronized void addReference(EcritureComptable pEcritureComptable) throws FunctionalException {
+	List <SequenceEcritureComptable> listSequenceEcritureComptable = this.getListSequenceEcritureComptableRM();
+	Calendar calendar = Calendar.getInstance();
+    calendar.setTime(pEcritureComptable.getDate());
+    int annee = calendar.get(Calendar.YEAR);
 
-		Calendar date = Calendar.getInstance();
-		date.setTime(pEcritureComptable.getDate());
-		int anneeEcriture = date.get(Calendar.YEAR);
+	} // code à effacer pas bon et ne sert à rien
 
-		SequenceEcritureComptable sequence = getDaoProxy().getComptabiliteDao()
-				.getSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), anneeEcriture);
+	// TODO à implémenter
+	// Bien se réferer à la JavaDoc de cette méthode !
+	/*
+	 * Le principe : 1. Remonter depuis la persitance la dernière valeur de la
+	 * séquence du journal pour l'année de l'écriture (table
+	 * sequence_ecriture_comptable) 2. S'il n'y a aucun enregistrement pour le
+	 * journal pour l'année concernée : 1. Utiliser le numéro 1. Sinon : 1. Utiliser
+	 * la dernière valeur + 1 3. Mettre à jour la référence de l'écriture avec la
+	 * référence calculée (RG_Compta_5) 4. Enregistrer (insert/update) la valeur de
+	 * la séquence en persitance (table sequence_ecriture_comptable)
+	 */
 
-		if (sequence != null) {
-			if (anneeEcriture == sequence.getAnnee()) {
-				ValeurSequence = String.valueOf(sequence.getDerniereValeur() + 1);
-				ref = pEcritureComptable.getJournal().getCode() + "-" + anneeEcriture + "/";
-				while (ValeurSequence.length() != 5) {
-					ValeurSequence = "0";
-				}
-				ref = ref.concat(ValeurSequence.toString());
-				pEcritureComptable.setReference(ref);
-				sequence.setDerniereValeur(sequence.getDerniereValeur() + 1);
-				updateSequenceEcritureComptable(sequence, pEcritureComptable.getJournal().getCode());
-			}
-		} else {
-			sequence = new SequenceEcritureComptable();
-			sequence.setAnnee(anneeEcriture);
-			sequence.setDerniereValeur(1);
-			pEcritureComptable
-					.setReference(pEcritureComptable.getJournal().getCode() + "-" + anneeEcriture + "/" + "00001");
-			updateSequenceEcritureComptable(sequence, pEcritureComptable.getJournal().getCode());
-		} //code à effacer pas bon et ne sert à rien
+	// On va chercher l'année et la dernière valeur, si elle n'existe pas on l'a met
+	// à 1 // principe de la persistance c'est que l'objet est resté en mémoire (BDE
+	// ici)
+	// ?)
+	// je regarde la séquence, la BDE me renvoit une séquence si y'en a pas j'en
+	// créé une,
+	// si existe j'update sinon je la créé
+	// on ne persiste que la séquence, pas d'update de l'ecritureUpdate
+	//
 
-		// TODO à implémenter
-		// Bien se réferer à la JavaDoc de cette méthode !
-		/*
-		 * Le principe : 1. Remonter depuis la persitance la dernière valeur de la
-		 * séquence du journal pour l'année de l'écriture (table
-		 * sequence_ecriture_comptable) 2. S'il n'y a aucun enregistrement pour le
-		 * journal pour l'année concernée : 1. Utiliser le numéro 1. Sinon : 1. Utiliser
-		 * la dernière valeur + 1 3. Mettre à jour la référence de l'écriture avec la
-		 * référence calculée (RG_Compta_5) 4. Enregistrer (insert/update) la valeur de
-		 * la séquence en persitance (table sequence_ecriture_comptable)
-		 */
+	// vérifier les méthodes dernières, vérifier celles :
+	// getSequenceJournalEcritureComptable / updateSequenceEcritureComptable /
+	// insertSequenceEcritureComptable // à faire lundi (vérifier)
 
-		// On va chercher l'année et la dernière valeur, si elle n'existe pas on l'a met
-		// à 1 // principe de la persistance c'est que l'objet est resté en mémoire (BDE
-		// ici)
-		// ?)
-		// je regarde la séquence, la BDE me renvoit une séquence si y'en a pas j'en
-		// créé une,
-		// si existe j'update sinon je la créé
-		// on ne persiste que la séquence, pas d'update de l'ecritureUpdate
-		//
+	// isntaller docker et démarrer le fichier
+	// C:\Users\alexa\eclipse-workspace\projet_B4_FR\docker\dev
 
-		// vérifier les méthodes dernières, vérifier celles :
-		// getSequenceJournalEcritureComptable / updateSequenceEcritureComptable /
-		// insertSequenceEcritureComptable // à faire lundi (vérifier)
+	// corriger erreur commit git
 
-		// isntaller docker et démarrer le fichier
-		// C:\Users\alexa\eclipse-workspace\projet_B4_FR\docker\dev
-
-		// corriger erreur commit git
-
+	{
 		Integer derniereValeur;
 		Date dateEcriture = pEcritureComptable.getDate();
 		Calendar cal = new GregorianCalendar();
