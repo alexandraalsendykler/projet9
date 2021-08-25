@@ -90,7 +90,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 			pEcritureComptable
 					.setReference(pEcritureComptable.getJournal().getCode() + "-" + anneeEcriture + "/" + "00001");
 			updateSequenceEcritureComptable(sequence, pEcritureComptable.getJournal().getCode());
-		}
+		} //code à effacer pas bon et ne sert à rien
 
 		// TODO à implémenter
 		// Bien se réferer à la JavaDoc de cette méthode !

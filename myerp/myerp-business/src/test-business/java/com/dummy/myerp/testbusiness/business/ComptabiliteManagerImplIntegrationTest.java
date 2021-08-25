@@ -53,6 +53,6 @@ public class ComptabiliteManagerImplIntegrationTest extends BusinessTestCase {
             vEcritureComptable.setDate(dateEcriture);
             manager.addReference(vEcritureComptable);
         });
-    }
+    } // ne pas reprendre / à effacer 
 	
 }
