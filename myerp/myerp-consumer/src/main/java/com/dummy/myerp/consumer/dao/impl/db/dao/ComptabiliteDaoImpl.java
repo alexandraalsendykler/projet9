@@ -316,8 +316,8 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
 		MapSqlParameterSource vSqlParams = new MapSqlParameterSource();
 		vSqlParams.addValue("annee", pSequenceEcritureComptable.getAnnee());
-		vSqlParams.addValue("derniere_valeur", pSequenceEcritureComptable.getDerniereValeur());
-		vSqlParams.addValue("journal_code", pSequenceEcritureComptable.getCode());
+		vSqlParams.addValue("derniere-valeur", pSequenceEcritureComptable.getDerniereValeur());
+		vSqlParams.addValue("journal-code", pSequenceEcritureComptable.getCode());
 		vJdbcTemplate.update(SQLinsertSequenceEcritureComptable, vSqlParams);
 
 	}
@@ -330,7 +330,8 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 	}
 
 	@Override
-	public void updateSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable) {
+	public void updateSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable)
+			throws NotFoundException {
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
 		MapSqlParameterSource vSqlParams = new MapSqlParameterSource();
 		vSqlParams.addValue("annee", pSequenceEcritureComptable.getAnnee());
@@ -341,16 +342,9 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 	}
 
 	@Override
-	public SequenceEcritureComptable getSequenceJournalEcritureComptable(EcritureComptable pEcritureComptable)
-			throws NotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void insertSequenceEcritureComptable(String pJournalCode, Integer pAnnee) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -358,5 +352,12 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public SequenceEcritureComptable getSequenceJournalEcritureComptable(EcritureComptable pEcritureComptable)
+			throws NotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	} // à vérifier car me semble bizarre
 
 }
