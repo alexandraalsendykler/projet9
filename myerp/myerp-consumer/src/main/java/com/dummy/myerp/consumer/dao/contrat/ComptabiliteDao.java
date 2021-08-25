@@ -26,6 +26,7 @@ public interface ComptabiliteDao {
      * @return {@link List}
      */
     List<JournalComptable> getListJournalComptable();
+    
  // ==================== SequenceEcritureComptable ====================
 
     /**
