@@ -108,4 +108,10 @@ public interface ComptabiliteDao {
 
 
 	SequenceEcritureComptable getSequenceEcritureComptable(String code, int anneeEcriture);
+
+
+	List<SequenceEcritureComptable> getListSequenceEcritureComptable();
+
+
+	void insertSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable);
 }

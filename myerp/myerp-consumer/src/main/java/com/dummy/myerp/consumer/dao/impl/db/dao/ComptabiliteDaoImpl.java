@@ -43,7 +43,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 	/**
 	 * Constructeur.
 	 */
-	protected ComptabiliteDaoImpl() { 
+	protected ComptabiliteDaoImpl() {
 		super();
 	}
 
@@ -340,22 +340,4 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 
 	}
 
-	@Override
-	public SequenceEcritureComptable getSequenceJournalEcritureComptable(EcritureComptable pEcritureComptable)
-			throws NotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void insertSequenceEcritureComptable(String pJournalCode, Integer pAnnee) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public SequenceEcritureComptable getSequenceEcritureComptable(String code, int anneeEcriture) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
