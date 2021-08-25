@@ -38,6 +38,7 @@ public interface ComptabiliteManager {
 	 * Renvoie la liste des séquences d'écriture comptable
 	 */
 	List<SequenceEcritureComptable> getListSequenceEcritureComptables();
+
 	/**
 	 * Ajoute une référence à l'écriture comptable.
 	 *
