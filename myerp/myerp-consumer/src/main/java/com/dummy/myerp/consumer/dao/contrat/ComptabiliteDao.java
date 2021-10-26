@@ -38,8 +38,8 @@ public interface ComptabiliteDao {
 	 * @return {@link SequenceEcritureComptable}
 	 * @throws NotFoundException : Si la séquence n'a pas été trouvée
 	 */
-	SequenceEcritureComptable getSequenceJournalEcritureComptable(EcritureComptable pEcritureComptable)
-			throws NotFoundException;
+	// SequenceEcritureComptable getSequenceJournalEcritureComptable(EcritureComptable pEcritureComptable)
+			//throws NotFoundException;
 
 	/**
 	 * Insère une nouvelle séquence d'écriture comptable pour le journal codé
@@ -48,7 +48,7 @@ public interface ComptabiliteDao {
 	 * @param pJournalCode le code du journal à associer à la séquence.
 	 * @param pAnnee       l'année à associer à la séquence.
 	 */
-	void insertSequenceEcritureComptable(String pJournalCode, Integer pAnnee);
+	// void insertSequenceEcritureComptable(String pJournalCode, Integer pAnnee);
 
 	/**
 	 * Modifie une séquence d'ecriture comptable
@@ -58,6 +58,12 @@ public interface ComptabiliteDao {
 	 */
 	void updateSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable) throws NotFoundException;
 
+	SequenceEcritureComptable getSequenceEcritureComptable(String code, int anneeEcriture);
+
+	List<SequenceEcritureComptable> getListSequenceEcritureComptable();
+
+	void insertSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable);
+	
 	// ==================== EcritureComptable ====================
 
 	/**
@@ -114,9 +120,6 @@ public interface ComptabiliteDao {
 	 */
 	void deleteEcritureComptable(Integer pId);
 
-	SequenceEcritureComptable getSequenceEcritureComptable(String code, int anneeEcriture);
-
-	List<SequenceEcritureComptable> getListSequenceEcritureComptable();
-
-	void insertSequenceEcritureComptable(SequenceEcritureComptable pSequenceEcritureComptable);
 }
+
+// à revoir après me semble pas logiquequement placé 

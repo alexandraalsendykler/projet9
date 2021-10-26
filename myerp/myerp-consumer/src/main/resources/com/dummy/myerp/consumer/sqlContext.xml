@@ -11,7 +11,7 @@
 			</value>
 		</property>
 
-		<property name ="SQLgetListJournalComptable">
+		<property name="SQLgetListJournalComptable">
 			<value>
 				SELECT * FROM myerp.journal_comptable
 			</value>
@@ -110,22 +110,20 @@
 			<value>
 				INSERT INTO myerp.sequence_ecriture_comptable (
 				journal_code,
-				annee, derniere_valeur
+				annee,
+				derniere_valeur
 				) VALUES (
-				:journal_code, :annee,
+				:journal_code, 
+				:annee,
 				:derniere_valeur
 				)
 			</value>
 		</property>
-
 		<property name="SQLupdateSequenceEcritureComptable">
 			<value>
 				UPDATE myerp.sequence_ecriture_comptable SET
-				journal_code =
-				:journal_code,
-				annee = :annee,
 				derniere_valeur = :derniere_valeur
-				WHERE journal_code = :journal_code ANDannee = :annee
+				WHERE journal_code = :journal_code AND annee = :annee
 			</value>
 		</property>
 	</bean>

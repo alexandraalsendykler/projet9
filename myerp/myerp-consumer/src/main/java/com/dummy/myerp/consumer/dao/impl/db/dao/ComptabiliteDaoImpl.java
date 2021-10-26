@@ -316,8 +316,8 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
 		MapSqlParameterSource vSqlParams = new MapSqlParameterSource();
 		vSqlParams.addValue("annee", pSequenceEcritureComptable.getAnnee());
-		vSqlParams.addValue("derniere-valeur", pSequenceEcritureComptable.getDerniereValeur());
-		vSqlParams.addValue("journal-code", pSequenceEcritureComptable.getCode());
+		vSqlParams.addValue("derniere_valeur", pSequenceEcritureComptable.getDerniereValeur());
+		vSqlParams.addValue("journal_code", pSequenceEcritureComptable.getCode());
 		vJdbcTemplate.update(SQLinsertSequenceEcritureComptable, vSqlParams);
 
 	}
@@ -342,22 +342,10 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 	}
 
 	@Override
-	public void insertSequenceEcritureComptable(String pJournalCode, Integer pAnnee) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public SequenceEcritureComptable getSequenceEcritureComptable(String code, int anneeEcriture) {
-		// TODO Auto-generated method stub
+		// TODO à implémenter plus tard 
 		return null;
 	}
 
-	@Override
-	public SequenceEcritureComptable getSequenceJournalEcritureComptable(EcritureComptable pEcritureComptable)
-			throws NotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	} // à vérifier car me semble bizarre
 
 }
