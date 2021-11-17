@@ -68,34 +68,8 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	@Override
 	public synchronized void addReference(EcritureComptable pEcritureComptable) throws FunctionalException {
 
-		// code à effacer pas bon et ne sert à rien
-
 		// TODO à implémenter
 		// Bien se réferer à la JavaDoc de cette méthode !
-		/*
-		 * Le principe : 1. Remonter depuis la persitance la dernière valeur de la
-		 * séquence du journal pour l'année de l'écriture (table
-		 * sequence_ecriture_comptable) 2. S'il n'y a aucun enregistrement pour le
-		 * journal pour l'année concernée : 1. Utiliser le numéro 1. Sinon : 1. Utiliser
-		 * la dernière valeur + 1 3. Mettre à jour la référence de l'écriture avec la
-		 * référence calculée (RG_Compta_5) 4. Enregistrer (insert/update) la valeur de
-		 * la séquence en persitance (table sequence_ecriture_comptable)
-		 */
-
-		// On va chercher l'année et la dernière valeur, si elle n'existe pas on l'a met
-		// à 1 // principe de la persistance c'est que l'objet est resté en mémoire (BDE
-		// ici)
-		// ?)
-		// je regarde la séquence, la BDE me renvoit une séquence si y'en a pas j'en
-		// créé une,
-		// si existe j'update sinon je la créé
-		// on ne persiste que la séquence, pas d'update de l'ecritureUpdate
-		//
-
-		// vérifier les méthodes dernières, vérifier celles :
-		// getSequenceJournalEcritureComptable / updateSequenceEcritureComptable /
-		// insertSequenceEcritureComptable //
-
 		{
 			Integer derniereValeur;
 			Date dateEcriture = pEcritureComptable.getDate();
@@ -104,22 +78,23 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 			int annee = cal.get(Calendar.YEAR);
 			String reference = pEcritureComptable.getReference();
 			String code = reference.split("-")[0];
+			SequenceEcritureComptable sequenceEcriture = null;
 			try {
-				SequenceEcritureComptable sequenceEcriture = getDaoProxy().getComptabiliteDao()
-						.getSequenceEcritureComptable(code, annee);
+				sequenceEcriture = getDaoProxy().getComptabiliteDao().getSequenceEcritureComptable(code, annee);
 				derniereValeur = sequenceEcriture.getDerniereValeur();
 				sequenceEcriture.setDerniereValeur(derniereValeur + 1);
 				getDaoProxy().getComptabiliteDao().updateSequenceEcritureComptable(sequenceEcriture);
 
 			} catch (NotFoundException exception) {
 				derniereValeur = 1;
-
-				getDaoProxy().getComptabiliteDao()
-						.insertSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), annee);
+				sequenceEcriture = new SequenceEcritureComptable(annee, derniereValeur, code);
+				getDaoProxy().getComptabiliteDao().insertSequenceEcritureComptable(sequenceEcriture);
 			}
 			pEcritureComptable.setReference(
 					String.format("%s-%d/%05d", pEcritureComptable.getJournal().getCode(), annee, derniereValeur));
 		}
+		
+		// méthode finie // à tester avec méthode d'intégration 
 	}
 
 	private void updateSequenceEcritureComptable(SequenceEcritureComptable sequence, String code) {
